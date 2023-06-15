@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema para Juri</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(0, 213, 255); /* Alteração da cor de fundo para azul */
+        }
+        h1 {
+            color: #355DFD;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: #355DFD;
+            font-size: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            background-color: #355DFD;
+            color: #fff;
+            border: none;
+            padding: 10px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .results {
+            margin-top: 30px;
+        }
+
+        .ranking {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .ranking li {
+            margin-bottom: 10px;
+        }
+
+        .first {
+            color: #FFD700;
+        }
+
+        .second {
+            color: #222121;
+        }
+
+        .third {
+            color: #CD7F32;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+    <head>
+        <title>Sua Página</title>
+        <style>
+          footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+          }
+        </style>
+      </head>
+      <body>
+        <!-- Conteúdo da sua página -->
+        <!-- ... -->
+        
+        <footer>
+          © 2023 - Todos os direitos reservados - criado por Anderson Henrique
+        </footer>
+      </body>
+      </html>
+      
+    
+    <div id="loginPage" class="container" style="text-align: center;">
+        <img src="https://res.cloudinary.com/dae7br7lb/image/upload/v1686464118/o__1_-removebg-preview_ygatnx.png" alt="Logo da empresa" style="width: 200px; height:200px auto;">
+        <h1>Login</h1>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required>
+        </div>
+        <div class="button-container">
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <div id="page1" class="container" style="display: none;">
+        <h1>Sistema para Juri</h1>
+        <div class="form-group">
+            <label for="nomeGrupo">Nome do Grupo:</label>
+            <input type="text" id="nomeGrupo" required>
+        </div>
+        <div class="form-group">
+            <label for="modalidade">Modalidade:</label>
+            <input type="text" id="modalidade" required>
+        </div>
+        <div class="form-group">
+            <label for="coreografia">Coreografia:</label>
+            <input type="text" id="coreografia" required>
+        </div>
+        <div class="form-group">
+            <label for="genero">Gênero:</label>
+            <input type="text" id="genero" required>
+        </div>
+        <div class="form-group">
+            <h2>Jurado 1</h2>
+            <label for="nomeJurado1">Nome:</label>
+            <input type="text" id="nomeJurado1" required>
+            <label for="notaJurado1">Nota:</label>
+            <input type="number" id="notaJurado1" min="5.0" max="10" step="0.1" required>
+        </div>
+        <div class="form-group">
+            <h2>Jurado 2</h2>
+            <label for="nomeJurado2">Nome:</label>
+            <input type="text" id="nomeJurado2" required>
+            <label for="notaJurado2">Nota:</label>
+            <input type="number" id="notaJurado2" min="5.0" max="10" step="0.1" required>
+        </div>
+        <div class="form-group">
+            <h2>Jurado 3</h2>
+            <label for="nomeJurado3">Nome:</label>
+            <input type="text" id="nomeJurado3" required>
+            <label for="notaJurado3">Nota:</label>
+            <input type="number" id="notaJurado3" min="5.0" max="10" step="0.1" required>
+        </div>
+        <div class="button-container">
+            <button onclick="calcularResultado()">Salvar</button>
+            <button onclick="mostrarResultado()">Ver Resultado</button>
+            <button onclick="Indicados()">Indicados</button>
+        </div>
+    </div>
+
+    <div id="page2" class="container" style="display: none;">
+        <h1>Resultado</h1>
+        <div class="results">
+            <h2>Notas:</h2>
+            <ul id="resultadoList" class="ranking"></ul>
+        </div>
+        <div class="button-container">
+            <button onclick="voltarInicio()">Voltar</button>
+            <button onclick="gerarRanking()">Total</button>
+
+            <button onclick="window.print()">Gerar PDF</button>
+        </div>
+    </div>
+
+     <div id="page3" class="container" style="display: none; text-align: center;">
+        <img src="https://res.cloudinary.com/dae7br7lb/image/upload/v1686464118/o__1_-removebg-preview_ygatnx.png" alt="Logo da empresa" style="width: 200px; height: auto; display: inline-block;">
+        <h1>Premiados</h1>
+        <div class="results">
+            <h2>Resultado Final:</h2>
+            <ul id="finalRankingList" class="ranking"></ul>
+        </div>
+        <div class="button-container">
+            <button onclick="window.print()">Gerar PDF</button>
+            <button onclick="voltarInicio()">Voltar</button>
+        </div>
+    </div>
+
+    <script>
+        let resultados = [];
+        let loggedIn = false;
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Verificar credenciais (exemplo simplificado)
+            if (username === 'admin' && password === '5678') {
+                alert('Seja bem Vindo(A) ao Sistema Juri.');
+                loggedIn = true;
+                showPage('page1');
+            } else {
+                alert('Ops! Parece que Você errou Algo . Tente novamente.');
+            }
+        }
+
+        function showPage(pageId) {
+            const pages = ['loginPage', 'page1', 'page2', 'page3'];
+            pages.forEach(page => {
+                const element = document.getElementById(page);
+                if (page === pageId) {
+                    element.style.display = 'block';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+        }
+
+        function calcularResultado() {
+            const nomeGrupo = document.getElementById('nomeGrupo').value;
+            const modalidade = document.getElementById('modalidade').value;
+            const coreografia = document.getElementById('coreografia').value;
+            const genero = document.getElementById('genero').value;
+            const nomeJurado1 = document.getElementById('nomeJurado1').value;
+            const notaJurado1 = parseFloat(document.getElementById('notaJurado1').value);
+            const nomeJurado2 = document.getElementById('nomeJurado2').value;
+            const notaJurado2 = parseFloat(document.getElementById('notaJurado2').value);
+            const nomeJurado3 = document.getElementById('nomeJurado3').value;
+            const notaJurado3 = parseFloat(document.getElementById('notaJurado3').value);
+
+            const resultado = {
+                nomeGrupo: nomeGrupo,
+                modalidade: modalidade,
+                coreografia: coreografia,
+                genero: genero,
+                jurados: [
+                    { nome: nomeJurado1, nota: notaJurado1 },
+                    { nome: nomeJurado2, nota: notaJurado2 },
+                    { nome: nomeJurado3, nota: notaJurado3 }
+                ]
+            };
+
+            resultados.push(resultado);
+            limparCampos();
+            mostrarResultado();
+
+            // Salvando os resultados no localStorage
+    localStorage.setItem('resultados', JSON.stringify(resultados));
+}
+
+function mostrarResultado() {
+    // ...
+    resultados = JSON.parse(localStorage.getItem('resultados')) || [];
+    // ...
+}
+
+function excluirResultado() {
+    resultados.pop();
+    mostrarResultado();
+
+    // Salvando os resultados atualizados no localStorage
+    localStorage.setItem('resultados', JSON.stringify(resultados));
+}
+// ...
+
+        function limparCampos() {
+            document.getElementById('nomeGrupo').value = '';
+            document.getElementById('modalidade').value = '';
+            document.getElementById('coreografia').value = '';
+            document.getElementById('genero').value = '';
+            document.getElementById('nomeJurado1').value = '';
+            document.getElementById('notaJurado1').value = '';
+            document.getElementById('nomeJurado2').value = '';
+            document.getElementById('notaJurado2').value = '';
+            document.getElementById('nomeJurado3').value = '';
+            document.getElementById('notaJurado3').value = '';
+        }
+
+        function mostrarResultado() {
+    const resultadoList = document.getElementById('resultadoList');
+    resultadoList.innerHTML = '';
+
+    resultados.forEach((resultado, index) => {
+        const item = document.createElement('li');
+        const media = resultado.jurados.reduce((acc, jurado) => acc + jurado.nota, 0) / resultado.jurados.length;
+        const mediaFormatted = formatarNumero(media);
+        const somaNotas = resultado.jurados.reduce((acc, jurado) => acc + jurado.nota, 0);
+        const somaNotasFormatted = formatarNumero(somaNotas);
+
+        item.innerHTML = `<strong>Grupo:</strong> ${resultado.nomeGrupo}<br>
+                          <strong>Modalidade:</strong> ${resultado.modalidade}<br>
+                          <strong>Coreografia:</strong> ${resultado.coreografia}<br>
+                          <strong>Gênero:</strong> ${resultado.genero}<br>
+                          <strong>Jurados:</strong> <br>
+                          ${resultado.jurados.map((jurado) => `${jurado.nome}: ${jurado.nota}`).join('<br>')}
+                          <br>
+                          <strong>Soma das Notas:</strong> ${somaNotasFormatted}<br>
+                          <strong>Média:</strong> ${mediaFormatted}
+                          <hr>`;
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'button-container';
+
+        const editarButton = document.createElement('button');
+        editarButton.innerText = 'Editar';
+        editarButton.addEventListener('click', () => {
+            editarResultado(index);
+        });
+
+        const excluirButton = document.createElement('button');
+        excluirButton.innerText = 'Excluir';
+        excluirButton.addEventListener('click', () => {
+            excluirResultado(index);
+        });
+
+        buttonContainer.appendChild(editarButton);
+        buttonContainer.appendChild(excluirButton);
+
+        item.appendChild(buttonContainer);
+        resultadoList.appendChild(item);
+    });
+
+    showPage('page2');
+}
+
+
+function formatarNumero(numero) {
+    const numeroFormatado = parseFloat(numero.toFixed(2)).toString().replace('.', ',');
+    return numeroFormatado;
+}
+
+
+
+
+function editarResultado(index) {
+    const resultado = resultados[index];
+
+    const nomeGrupo = prompt('Digite o novo nome do grupo:', resultado.nomeGrupo);
+    const modalidade = prompt('Digite a nova modalidade:', resultado.modalidade);
+    const coreografia = prompt('Digite a nova coreografia:', resultado.coreografia);
+    const genero = prompt('Digite o novo gênero:', resultado.genero);
+
+    const jurados = [];
+    for (let i = 0; i < resultado.jurados.length; i++) {
+        const nomeJurado = prompt(`Digite o nome do ${i+1}º jurado:`, resultado.jurados[i].nome);
+        const notaJurado = parseFloat(prompt(`Digite a nota do ${i+1}º jurado:`, resultado.jurados[i].nota));
+
+        jurados.push({
+            nome: nomeJurado,
+            nota: notaJurado
+        });
+    }
+
+    const novoResultado = {
+        nomeGrupo: nomeGrupo,
+        modalidade: modalidade,
+        coreografia: coreografia,
+        genero: genero,
+        jurados: jurados
+    };
+
+    resultados[index] = novoResultado;
+    mostrarResultado();
+}
+    // Implemente o código para editar o resultado
+    // Use o índice para acessar o resultado correto no array 'resultados'
+
+function excluirResultado(index) {
+    resultados.splice(index, 1);
+    mostrarResultado();
+}
+
+        function voltarInicio() {
+            showPage('page1');
+        }
+
+        function gerarRanking() {
+    const finalRankingList = document.getElementById('finalRankingList');
+    finalRankingList.innerHTML = '';
+
+    const rankings = resultados.map(resultado => {
+        const soma = resultado.jurados.reduce((acc, jurado) => acc + jurado.nota, 0);
+        const media = soma / resultado.jurados.length;
+
+        return {
+            nomeGrupo: resultado.nomeGrupo,
+            media: media
+        };
+    });
+
+    rankings.sort((a, b) => b.media - a.media);
+
+    for (let i = 0; i < 3; i++) {
+        const item = document.createElement('li');
+        item.innerHTML = `<strong>Grupo:</strong> ${rankings[i].nomeGrupo}<br>
+                          <strong>Média:</strong> ${rankings[i].media.toFixed(2).replace('.', ',')}<br>
+                          <hr>`;
+        item.classList.add(i === 0 ? 'first' : (i === 1 ? 'second' : 'third'));
+        finalRankingList.appendChild(item);
+    }
+
+    showPage('page3');
+}
+
+        function gerarPDF() {
+            const doc = new jsPDF();
+            const finalRankingList = document.getElementById('finalRankingList');
+            const resultadoList = document.getElementById('resultadoList');
+            const pages = document.getElementsByClassName('container');
+
+            doc.setFontSize(18);
+            doc.text('Sistema de Jurados - Resultados', 20, 20);
+
+            doc.setFontSize(14);
+            doc.text('Resultado Individual:', 20, 40);
+            doc.fromHTML(resultadoList.innerHTML, 20, 50);
+
+            doc.addPage();
+            doc.text('Resultado Final:', 20, 20);
+            doc.fromHTML(finalRankingList.innerHTML, 20, 30);
+
+            doc.save('resultado.pdf');
+        }
+
+        function Indicados() {
+      window.location.href = "file:///C:/Users/USUARIO/Desktop/sistema%20juri%20completo/pagina%20indical%C3%A7ao.html";
+    }
+
+
+    
+    </script>
+</body>
+</html>

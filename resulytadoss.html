@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado das Indicações</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: "Arial", sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-top: 30px;
+    }
+
+    table {
+      width: 80%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      border: 1px solid #fff;
+    }
+
+    th {
+      background-color: #355DFD;
+      padding: 10px;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    td {
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    .blue {
+      color: blue;
+    }
+    
+    .bold-blue {
+      font-weight: bold;
+      color: blue;
+    }
+    
+    .btn {
+      display: block;
+      width: 100px;
+      margin: 30px auto;
+      padding: 10px;
+      text-align: center;
+      background-color: #355DFD;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <head>
+    <title>Sua Página</title>
+    <style>
+      footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Conteúdo da sua página -->
+    <!-- ... -->
+    
+    <footer>
+      © 2023 - Todos os direitos reservados - criado por Anderson Henrique
+    </footer>
+  </body>
+  </html>
+
+  <h1>Resultado das Indicações</h1>
+
+  <table>
+    <tr>
+      <th>1º Melhor Grupo</th>
+      <td id="nomeGrupo1"></td>
+    </tr>
+    <tr>
+      <th>1º Melhor Coreógrafo</th>
+      <td id="nomeCoreografo1"></td>
+    </tr>
+    <tr>
+      <th>1º Melhor Bailarino</th>
+      <td id="nomeBailarino1"></td>
+    </tr>
+    <tr>
+      <th>1º Melhor Bailarina</th>
+      <td id="nomeBailarina1"></td>
+    </tr>
+  </table>
+
+  <button onclick="goBack()" class="btn">Voltar</button>
+  <button onclick="window.print()"class="btn">Gerar PDF</button>
+
+
+  <script>
+    var indicacoes = localStorage.getItem("indicacoes");
+    if (indicacoes) {
+      var indicacoesObj = JSON.parse(indicacoes);
+
+      document.getElementById("nomeGrupo1").innerHTML = '<span class="blue">' + indicacoesObj.nomeGrupo1 + '</span>';  
+      document.getElementById("nomeCoreografo1").innerHTML = 'Nome do Coreógrafo: <b class="bold-blue">' + indicacoesObj.nomeCoreografo1 + '</b><br>Nome do Grupo: <b class="bold-blue">' + indicacoesObj.grupoCoreografo1 + '</b>';
+      document.getElementById("nomeBailarino1").innerHTML = 'Nome do Bailarino: <b class="bold-blue">' + indicacoesObj.nomeBailarino1 + '</b><br>Nome do Grupo: <b class="bold-blue">' + indicacoesObj.grupoBailarino1 + '</b>';
+      document.getElementById("nomeBailarina1").innerHTML = 'Nome da Bailarina: <b class="bold-blue">' + indicacoesObj.nomeBailarina1 + '</b><br>Nome do Grupo: <b class="bold-blue">' + indicacoesObj.grupoBailarina1 + '</b>';
+    }
+    
+    function goBack() {
+      history.back();
+    }
+  </script>
+</body>
+</html>

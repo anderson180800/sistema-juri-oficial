@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema para Juri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(0, 213, 255); /* Alteração da cor de fundo para azul */
+        }
+        h1 {
+            color: #355DFD;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: #355DFD;
+            font-size: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            background-color: #355DFD;
+            color: #fff;
+            border: none;
+            padding: 10px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .results {
+            margin-top: 30px;
+        }
+
+        .ranking {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .ranking li {
+            margin-bottom: 10px;
+        }
+
+        .first {
+            color: #FFD700;
+        }
+
+        .second {
+            color: #222121;
+        }
+
+        .third {
+            color: #CD7F32;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <head>
+        <title>Sua Página</title>
+        <style>
+          footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+          }
+        </style>
+      </head>
+      <body>
+        <!-- Conteúdo da sua página -->
+        <!-- ... -->
+        
+        <footer>
+          © 2023 - Todos os direitos reservados - criado por Anderson Henrique
+        </footer>
+      </body>
+      </html>
+
+
+    <div id="loginPage" class="container" style="text-align: center;">
+        <img src="https://res.cloudinary.com/dae7br7lb/image/upload/v1686464118/o__1_-removebg-preview_ygatnx.png" alt="Logo da empresa" style="width: 200px; height:200px auto;">
+        <h1>Bem-vindo(a) ao sistema Juri!</h1>
+        <div class="form-group">
+            <label for="username">Escreva a palavra "juri"no campo abaixo:</label>
+            <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">e clique em avançar:</label>
+            
+        </div>
+        <div class="button-container">
+            <button onclick="login()">Avançar</button>
+        </div>
+    </div>
+
+    <div id="page1" class="container" style="display: none;">
+        <h1>Sistema para Juri</h1>
+        <div class="form-group">
+            <label for="nomeGrupo">Nome do Grupo:</label>
+            <input type="text" id="nomeGrupo" required>
+        </div>
+        <div class="form-group">
+            <label for="modalidade">Modalidade:</label>
+            <input type="text" id="modalidade" required>
+        </div>
+        <div class="form-group">
+            <label for="coreografia">Coreografia:</label>
+            <input type="text" id="coreografia" required>
+        </div>
+        <div class="form-group">
+            <label for="nota1">Nota 1:</label>
+            <input type="number" id="nota1" required>
+        </div>
+        <div class="form-group">
+            <label for="nota2">Nota 2:</label>
+            <input type="number" id="nota2" required>
+        </div>
+        <div class="form-group">
+            <label for="nota3">Nota 3:</label>
+            <input type="number" id="nota3" required>
+        </div>
+        <div class="button-container">
+            <button onclick="mostrarResultadoPage1()">Mostrar Resultado</button>
+        </div>
+    </div>
+
+    <div id="page2" class="container" style="display: none;">
+        <h1>Resultado</h1>
+        <div class="results">
+            <ul class="ranking">
+                <li class="first">1º Lugar: <span id="firstPlace"></span></li>
+                <li class="second">2º Lugar: <span id="secondPlace"></span></li>
+                <li class="third">3º Lugar: <span id="thirdPlace"></span></li>
+            </ul>
+        </div>
+        <div class="button-container">
+            <button onclick="Indicados()">Ir para Página de Indicação</button>
+            <button onclick="imprimirPDF()">Gerar PDF</button>
+        </div>
+    </div>
+
+    <div id="indicacaoPage" class="container" style="display: none;">
+        <h1>Página de Indicação</h1>
+        <p>Aqui está a página de indicação.</p>
+    </div>
+
+    <script>
+        function login() {
+    var username = document.getElementById("username").value;
+
+    if (username === "juri") {
+        alert("Isso aí! Agora basta entrar com seu usuário e senha.");
+        window.location.href = "file:///C:/Users/USUARIO/Desktop/sistema%20juri%20completo/sistema%20juri%20-%20Copia11.html";
+    } else {
+        alert("Nome inválido. Tente novamente.");
+    }
+}
+
+
+
+        function mostrarResultadoPage1() {
+            var nomeGrupo = document.getElementById("nomeGrupo").value;
+            var modalidade = document.getElementById("modalidade").value;
+            var coreografia = document.getElementById("coreografia").value;
+            var nota1 = parseInt(document.getElementById("nota1").value);
+            var nota2 = parseInt(document.getElementById("nota2").value);
+            var nota3 = parseInt(document.getElementById("nota3").value);
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert("Por favor, insira apenas números nas notas.");
+                return;
+            }
+
+            var media = (nota1 + nota2 + nota3) / 3;
+
+            document.getElementById("firstPlace").innerText = nomeGrupo + " - " + modalidade + " - " + coreografia + " - Média: " + media.toFixed(2);
+            document.getElementById("loginPage").style.display = "none";
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "block";
+        }
+
+        function Indicados() {
+            window.location.href = "file:///C:/Users/USUARIO/Desktop/sistema%20juri%20-%20Copia11.html";
+        }
+
+        function imprimirPDF() {
+            var doc = new jsPDF();
+            var firstPlace = document.getElementById("firstPlace").innerText;
+            var secondPlace = document.getElementById("secondPlace").innerText;
+            var thirdPlace = document.getElementById("thirdPlace").innerText;
+
+            doc.text(20, 20, "1º Lugar: " + firstPlace);
+            doc.text(20, 30, "2º Lugar: " + secondPlace);
+            doc.text(20, 40, "3º Lugar: " + thirdPlace);
+
+            doc.save("resultado_juri.pdf");
+        }
+    </script>
+</body>
+</html>
